@@ -101,8 +101,8 @@ void *ft_routine(void *params)
         if (data->n_philos == 1)
         {
             usleep(data->t_die * 1000); // Philosopher will die after t_die time
-            print_status(philo, "died");
-            pthread_mutex_unlock(philo->left_fork);
+    
+            // pthread_mutex_unlock(philo->left_fork);
             break;
         }
 
