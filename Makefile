@@ -1,7 +1,7 @@
 NAME = philosopher
 INCLUDES = ./philo.h
-SRCS = philo.c
-SRCS_BONUS=philo.c
+SRCS = philo.c philo_helper.c ft_routines.c utils.c
+SRCS_BONUS= philo.c philo_helper.c ft_routines.c utils.c
 
 CFLAGS= -Wall -Werror -Wextra
 
