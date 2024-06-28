@@ -2,17 +2,17 @@
 
 void check_valid_args(int ac)
 {
-    if (ac != 5 && ac != 6)
-    {
-        write(2, "ERROR\n", 6);
-        exit(1);
-    }
+	if (ac != 5 && ac != 6)
+	{
+		write(2, "ERROR\n", 6);
+		exit(1);
+	}
 }
-int	ft_atoi(const char *nptr)
+int ft_atoi(const char *nptr)
 {
-	int		res;
-	int		sign;
-	int		i;
+	int res;
+	int sign;
+	int i;
 
 	i = 0;
 	res = 0;
@@ -34,11 +34,11 @@ int	ft_atoi(const char *nptr)
 	}
 	return (sign * res);
 }
-long	ft_atol(const char *nptr)
+long ft_atol(const char *nptr)
 {
-	long		res;
-	int		sign;
-	int		i;
+	long res;
+	int sign;
+	int i;
 
 	i = 0;
 	res = 0;
@@ -63,24 +63,18 @@ long	ft_atol(const char *nptr)
 
 long get_time()
 {
-    struct timeval time;
-    gettimeofday(&time, NULL);
-    return (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	struct timeval time;
+	if (gettimeofday(&time, NULL) == -1)
+		return (0);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int my_usleep(useconds_t usec)
+int my_usleep(size_t millis)
 {
-    struct timespec req, rem;
 
-    // Convert microseconds to seconds and nanoseconds
-    req.tv_sec = usec / 1000000;
-    req.tv_nsec = (usec % 1000000) * 1000;
+	size_t start = get_time();
+	while ((get_time() - start) < millis)
+		usleep(500);
 
-    while (nanosleep(&req, &rem) == -1)
-    {
-        // Check if we need to continue sleeping for the remaining time
-        req = rem;
-    }
-    // Return 0 on success
-    return 0;
+	return 0;
 }

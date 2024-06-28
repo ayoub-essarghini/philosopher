@@ -17,15 +17,16 @@ void init_philos(t_data *data)
 
 void print_status(t_philo *philosopher, const char *status)
 {
-    pthread_mutex_lock(&philosopher->params->dead_lock);
+    pthread_mutex_lock(&philosopher->params->print_lock);
+        // pthread_mutex_lock(&philosopher->params->dead_lock);
     if (philosopher->params->running == 1)
     {
-        pthread_mutex_lock(&philosopher->params->print_lock);
         printf("%ld %d %s\n", get_time() - philosopher->params->start_time, philosopher->id, status);
-        pthread_mutex_unlock(&philosopher->params->print_lock);
     }
-    pthread_mutex_unlock(&philosopher->params->dead_lock);
+        // pthread_mutex_unlock(&philosopher->params->dead_lock);
+    pthread_mutex_unlock(&philosopher->params->print_lock);
 }
+
 
 void init_mutex(t_data **data)
 {

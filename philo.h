@@ -38,7 +38,7 @@ void init_data(t_data **data, int ac, char **av);
 void *controller_routine(void *args);
 void *ft_routine(void *params);
 long get_time();
-int my_usleep(useconds_t usec);
+int my_usleep(size_t millis);
 void check_valid_args(int ac);
 void init_philos(t_data *data);
 long	ft_atol(const char *nptr);
