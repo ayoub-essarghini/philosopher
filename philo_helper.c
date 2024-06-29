@@ -18,15 +18,12 @@ void init_philos(t_data *data)
 void print_status(t_philo *philosopher, const char *status)
 {
     pthread_mutex_lock(&philosopher->params->print_lock);
-        // pthread_mutex_lock(&philosopher->params->dead_lock);
     if (philosopher->params->running == 1)
     {
         printf("%ld %d %s\n", get_time() - philosopher->params->start_time, philosopher->id, status);
     }
-        // pthread_mutex_unlock(&philosopher->params->dead_lock);
     pthread_mutex_unlock(&philosopher->params->print_lock);
 }
-
 
 void init_mutex(t_data **data)
 {
@@ -56,10 +53,20 @@ void init_data(t_data **data, int ac, char **av)
         exit(1);
     }
     (*data)->n_philos = ft_atoi(av[1]);
+    if ((*data)->n_philos <= 0)
+    {
+        write(STDERR_FILENO, "ERROR\n", 6);
+        exit(1);
+    }
     (*data)->t_die = ft_atol(av[2]);
     (*data)->t_eat = ft_atol(av[3]);
     (*data)->t_sleep = ft_atol(av[4]);
-    (*data)->n_meals = (ac == 6) ? ft_atoi(av[5]) : -1;
+    if (ac == 6)
+        (*data)->n_meals = ft_atoi(av[5]);
+    else
+        (*data)->n_meals = -1;
+
+    // (*data)->n_meals = (ac == 6) ? ft_atoi(av[5]) : -1;
     (*data)->running = 1;
     (*data)->n_finished_meals = 0;
     (*data)->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (*data)->n_philos);

@@ -5,12 +5,12 @@ int routine_2(t_philo *philo, t_data *data)
     if (philo->id % 2 == 0)
     {
         pthread_mutex_lock(philo->right_fork);
-        print_status(philo, "has taken a right fork");
+        print_status(philo, "has taken a fork");
     }
     else
     {
         pthread_mutex_lock(philo->left_fork);
-        print_status(philo, "has taken a left fork");
+        print_status(philo, "has taken a fork");
     }
     print_status(philo, "is eating");
     my_usleep(data->t_eat);
@@ -67,18 +67,19 @@ void *ft_routine(void *params)
             break;
         pthread_mutex_lock(&data->dead_lock);
         print_status(philo, "is thinking");
-        my_usleep(5);
+        // my_usleep(1);
         pthread_mutex_unlock(&data->dead_lock);
 
         if (philo->id % 2 == 0)
         {
+            usleep(200);
             pthread_mutex_lock(philo->left_fork);
-            print_status(philo, "has taken a left fork");
+            print_status(philo, "has taken a fork");
         }
         else
         {
             pthread_mutex_lock(philo->right_fork);
-            print_status(philo, "has taken a right fork");
+            print_status(philo, "has taken a fork");
         }
         if (data->n_philos == 1)
         {
@@ -101,7 +102,7 @@ void *controller_routine(void *args)
     data = (t_data *)args;
     while (1)
     {
-        my_usleep(5);
+        my_usleep(1);
         i = 0;
         while (i < data->n_philos)
         {

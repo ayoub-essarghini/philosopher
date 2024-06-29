@@ -1,13 +1,10 @@
-NAME = philosopher
+NAME = philo
 INCLUDES = ./philo.h
 SRCS = philo.c philo_helper.c ft_routines.c utils.c
-SRCS_BONUS= philo.c philo_helper.c ft_routines.c utils.c
 
-CFLAGS= -Wall -Werror -Wextra -g3 #-fsanitize=thread
+CFLAGS= -Wall -Werror -Wextra #-g3 -fsanitize=thread
 
 OBJS = $(SRCS:.c=.o)
-
-OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all: $(NAME)
 
@@ -23,5 +20,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 	
