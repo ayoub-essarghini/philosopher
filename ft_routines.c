@@ -12,12 +12,12 @@ int routine_2(t_philo *philo, t_data *data)
         pthread_mutex_lock(philo->left_fork);
         print_status(philo, "has taken a fork");
     }
-    print_status(philo, "is eating");
-    my_usleep(data->t_eat);
     pthread_mutex_lock(&data->dead_lock);
     philo->last_meal = get_time();
     philo->meals_eaten++;
     pthread_mutex_unlock(&data->dead_lock);
+    print_status(philo, "is eating");
+    my_usleep(data->t_eat);
     if (philo->id % 2 == 0)
     {
         pthread_mutex_unlock(philo->left_fork);
@@ -37,7 +37,9 @@ int routine_2(t_philo *philo, t_data *data)
         pthread_mutex_unlock(&data->dead_lock);
         return (-1);
     }
+    pthread_mutex_lock(&data->dead_lock);
     print_status(philo, "is sleeping");
+    pthread_mutex_unlock(&data->dead_lock);
     my_usleep(data->t_sleep);
     return (0);
 }
@@ -72,7 +74,7 @@ void *ft_routine(void *params)
 
         if (philo->id % 2 == 0)
         {
-            usleep(200);
+            // usleep(200);
             pthread_mutex_lock(philo->left_fork);
             print_status(philo, "has taken a fork");
         }

@@ -4,7 +4,7 @@ void check_valid_args(int ac)
 {
 	if (ac != 5 && ac != 6)
 	{
-		write(2, "ERROR\n", 6);
+		write(STDERR_FILENO, "Error\n", 6);
 		exit(1);
 	}
 }
