@@ -27,6 +27,7 @@ typedef struct data
     int n_meals;
     int n_finished_meals;
     long start_time;
+    pthread_mutex_t ayoub;
     pthread_mutex_t *forks;
     pthread_mutex_t print_lock;
     pthread_mutex_t dead_lock;

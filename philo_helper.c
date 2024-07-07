@@ -17,12 +17,12 @@ void init_philos(t_data *data)
 
 void print_status(t_philo *philosopher, const char *status)
 {
-    pthread_mutex_lock(&philosopher->params->print_lock);
+    pthread_mutex_lock(&philosopher->params->ayoub);
     if (philosopher->params->running == 1)
     {
         printf("%ld %d %s\n", get_time() - philosopher->params->start_time, philosopher->id, status);
     }
-    pthread_mutex_unlock(&philosopher->params->print_lock);
+    pthread_mutex_unlock(&philosopher->params->ayoub);
 }
 
 void init_mutex(t_data **data)
@@ -35,6 +35,7 @@ void init_mutex(t_data **data)
     }
     pthread_mutex_init(&(*data)->print_lock, NULL);
     pthread_mutex_init(&(*data)->dead_lock, NULL);
+    pthread_mutex_init(&(*data)->ayoub, NULL);
     (*data)->philos = (t_philo *)malloc(sizeof(t_philo) * (*data)->n_philos);
     if ((*data)->philos == NULL)
     {

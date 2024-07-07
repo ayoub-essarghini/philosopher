@@ -12,10 +12,10 @@ int routine_2(t_philo *philo, t_data *data)
         pthread_mutex_lock(philo->left_fork);
         print_status(philo, "has taken a fork");
     }
-    pthread_mutex_lock(&data->dead_lock);
+    pthread_mutex_lock(&data->ayoub);
     philo->last_meal = get_time();
     philo->meals_eaten++;
-    pthread_mutex_unlock(&data->dead_lock);
+    pthread_mutex_unlock(&data->ayoub);
     print_status(philo, "is eating");
     my_usleep(data->t_eat);
     if (philo->id % 2 == 0)
@@ -37,21 +37,23 @@ int routine_2(t_philo *philo, t_data *data)
         pthread_mutex_unlock(&data->dead_lock);
         return (-1);
     }
-    pthread_mutex_lock(&data->dead_lock);
+    // pthread_mutex_lock(&data->dead_lock);
     print_status(philo, "is sleeping");
-    pthread_mutex_unlock(&data->dead_lock);
+    // pthread_mutex_unlock(&data->dead_lock);
     my_usleep(data->t_sleep);
+    print_status(philo, "is thinking");
+
     return (0);
 }
 int is_died(t_data *data)
 {
-    pthread_mutex_lock(&data->dead_lock);
+    pthread_mutex_lock(&data->ayoub);
     if (data->running != 1)
     {
-        pthread_mutex_unlock(&data->dead_lock);
+        pthread_mutex_unlock(&data->ayoub);
         return (0);
     }
-    pthread_mutex_unlock(&data->dead_lock);
+    pthread_mutex_unlock(&data->ayoub);
     return (1);
 }
 void *ft_routine(void *params)
@@ -67,14 +69,10 @@ void *ft_routine(void *params)
     {
         if (is_died(data) == 0)
             break;
-        pthread_mutex_lock(&data->dead_lock);
-        print_status(philo, "is thinking");
-        // my_usleep(1);
-        pthread_mutex_unlock(&data->dead_lock);
 
         if (philo->id % 2 == 0)
         {
-            // usleep(200);
+            usleep(200);
             pthread_mutex_lock(philo->left_fork);
             print_status(philo, "has taken a fork");
         }
@@ -108,17 +106,19 @@ void *controller_routine(void *args)
         i = 0;
         while (i < data->n_philos)
         {
-            pthread_mutex_lock(&data->dead_lock);
+            pthread_mutex_lock(&data->ayoub);
             t_lst_meal = get_time() - data->philos[i].last_meal;
             if (t_lst_meal > data->t_die)
             {
-                print_status(&data->philos[i], "died");
+                printf("%ld %d %s\n", get_time() - data->philos[i].params->start_time, data->philos[i].id, "died");
+
+                // print_status(&data->philos[i], "died");
                 data->running = 0;
-                pthread_mutex_unlock(&data->dead_lock);
+                pthread_mutex_unlock(&data->ayoub);
                 return NULL;
             }
             i++;
-            pthread_mutex_unlock(&data->dead_lock);
+            pthread_mutex_unlock(&data->ayoub);
         }
         pthread_mutex_lock(&data->dead_lock);
         if (data->running != 1)
