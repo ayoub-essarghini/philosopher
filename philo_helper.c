@@ -39,7 +39,7 @@ void	print_status(t_philo *philo, const char *status)
 	pthread_mutex_unlock(&philo->params->t_lock);
 }
 
-void	init_mutex(t_data **data)
+int	init_mutex(t_data **data)
 {
 	size_t	i;
 
@@ -49,7 +49,7 @@ void	init_mutex(t_data **data)
 	if ((*data)->forks == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		exit(1);
+		return(1);
 	}
 	while (i < (*data)->n_philos)
 	{
@@ -63,11 +63,12 @@ void	init_mutex(t_data **data)
 	if ((*data)->philos == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		exit(1);
+		return(1);
 	}
+	return (0);
 }
 
-void	validate_data(int ac, char **av, t_data **data)
+int	validate_data(int ac, char **av, t_data **data)
 {
 	int	i;
 
@@ -77,7 +78,7 @@ void	validate_data(int ac, char **av, t_data **data)
 		if (only_digit(av[i]) == 1)
 		{
 			write(2, "Error: Nan\n", 11);
-			exit(1);
+			return(1);
 		}
 		i++;
 	}
@@ -88,33 +89,35 @@ void	validate_data(int ac, char **av, t_data **data)
 	if ((*data)->n_philos <= 0 || (*data)->n_philos > INT_MAX)
 	{
 		write(2, "Error : args not valid\n", 23);
-		exit(1);
+		return(1);
 	}
-	check_negative(*data);
+	return (check_negative(*data));
 }
 
-void	init_data(t_data **data, int ac, char **av)
+int	init_data(t_data **data, int ac, char **av)
 {
-	check_valid_args(ac);
+	if (check_valid_args(ac) != 0)
+		return (1);
 	*data = (t_data *)malloc(sizeof(t_data));
 	if (*data == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		exit(1);
+		return(1);
 	}
-	validate_data(ac, av, data);
+	if (validate_data(ac, av, data) != 0)
+		return (1);
 	if (ac == 6)
 	{
 		(*data)->n_meals = ft_atoi(av[5]);
 		if ((*data)->n_meals <= 0)
 		{
 			write(2, "Error : args not valid\n", 23);
-			exit(0);
+			return (1);
 		}
 	}
 	else
 		(*data)->n_meals = -1;
 	(*data)->running = 1;
 	(*data)->n_finished_meals = 0;
-	init_mutex(data);
+	return (init_mutex(data));
 }

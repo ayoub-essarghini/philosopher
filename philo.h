@@ -47,21 +47,19 @@ typedef struct data
 	t_philo			*philos;
 }					t_data;
 
-void				init_data(t_data **data, int ac, char **av);
+int				init_data(t_data **data, int ac, char **av);
 void				*monitor_routine(void *args);
 void				*ft_routine(void *params);
 long				get_time(void);
 int					my_usleep(size_t millis);
-void				check_valid_args(int ac);
+int				check_valid_args(int ac);
 void				init_philos(t_data *data);
 long				ft_atol(const char *nptr);
 int					ft_atoi(const char *nptr);
 void				print_status(t_philo *philo, const char *status);
 int					only_digit(char *str);
-void				check_negative(t_data *data);
+int				check_negative(t_data *data);
 void				take_fork_and_eat(t_philo *philo, t_data *data);
 void				take_first_fork(t_philo *philo);
-int					check_monitor_die(t_data *data);
-void				check_philosophers(t_data *data);
 
 #endif

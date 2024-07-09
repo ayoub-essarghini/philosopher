@@ -25,11 +25,12 @@ int	only_digit(char *str)
 	return (0);
 }
 
-void	check_negative(t_data *data)
+int	check_negative(t_data *data)
 {
 	if (data->t_die <= 0 || data->t_eat <= 0 || data->t_sleep <= 0)
 	{
 		write(2, "Error : args not valid\n", 23);
-		exit(1);
+		return(1);
 	}
+	return (0);
 }

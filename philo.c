@@ -36,7 +36,8 @@ int	main(int ac, char **av)
 	pthread_t	controller_th;
 
 	i = 0;
-	init_data(&data, ac, av);
+	if (init_data(&data, ac, av) != 0)
+		return (1);
 	init_philos(data);
 	data->start_time = get_time();
 	pthread_create(&controller_th, NULL, monitor_routine, data);

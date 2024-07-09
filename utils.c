@@ -65,7 +65,7 @@ long	ft_atol(const char *nptr)
 	return (sign * res);
 }
 
-void	check_valid_args(int ac)
+int	check_valid_args(int ac)
 {
 	if (ac != 5 && ac != 6)
 	{
@@ -73,8 +73,9 @@ void	check_valid_args(int ac)
 			"usage: [number of philos] [time to die] \
 		[time to eat] [time to sleep]\n",
 			70);
-		exit(1);
+		return (1);
 	}
+	return (0);
 }
 
 long	get_time(void)
