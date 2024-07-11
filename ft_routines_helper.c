@@ -35,7 +35,7 @@ void	take_first_fork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		// usleep(200);
+		usleep(200);
 		pthread_mutex_lock(philo->left_fork);
 		print_status(philo, "has taken a fork");
 	}

@@ -107,7 +107,6 @@ void	*monitor_routine(void *args)
 	data = (t_data *)args;
 	while (1)
 	{
-		// my_usleep(1);
 		if (check_philos(data))
 			return (NULL);
 		pthread_mutex_lock(&data->t_lock);

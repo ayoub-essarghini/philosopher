@@ -49,7 +49,7 @@ int	init_mutex(t_data **data)
 	if ((*data)->forks == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		return(1);
+		return (1);
 	}
 	while (i < (*data)->n_philos)
 	{
@@ -63,7 +63,7 @@ int	init_mutex(t_data **data)
 	if ((*data)->philos == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -78,7 +78,7 @@ int	validate_data(int ac, char **av, t_data **data)
 		if (only_digit(av[i]) == 1)
 		{
 			write(2, "Error: Nan\n", 11);
-			return(1);
+			return (1);
 		}
 		i++;
 	}
@@ -89,7 +89,7 @@ int	validate_data(int ac, char **av, t_data **data)
 	if ((*data)->n_philos <= 0 || (*data)->n_philos > INT_MAX)
 	{
 		write(2, "Error : args not valid\n", 23);
-		return(1);
+		return (1);
 	}
 	return (check_negative(*data));
 }
@@ -102,7 +102,7 @@ int	init_data(t_data **data, int ac, char **av)
 	if (*data == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		return(1);
+		return (1);
 	}
 	if (validate_data(ac, av, data) != 0)
 		return (1);
