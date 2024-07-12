@@ -49,7 +49,7 @@ int	init_mutex(t_data **data)
 	if ((*data)->forks == NULL)
 	{
 		write(2, "Error :Memory allocation failed\n", 32);
-		return (1);
+		return (free(*data), 1);
 	}
 	while (i < (*data)->n_philos)
 	{
@@ -77,6 +77,7 @@ int	validate_data(int ac, char **av, t_data **data)
 	{
 		if (only_digit(av[i]) == 1)
 		{
+			free(*data);
 			write(2, "Error: Nan\n", 11);
 			return (1);
 		}
@@ -88,6 +89,7 @@ int	validate_data(int ac, char **av, t_data **data)
 	(*data)->t_sleep = ft_atol(av[4]);
 	if ((*data)->n_philos <= 0 || (*data)->n_philos > INT_MAX)
 	{
+		free(*data);
 		write(2, "Error : args not valid\n", 23);
 		return (1);
 	}

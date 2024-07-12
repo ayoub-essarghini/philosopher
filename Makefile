@@ -3,7 +3,7 @@ INCLUDES = ./philo.h
 SRCS = philo.c philo_helper.c ft_routines.c \
 		ft_routines_helper.c utils.c utils2.c
 
-CFLAGS= -Wall -Werror -Wextra #-g3 -fsanitize=thread 
+CFLAGS= -Wall -Werror -Wextra -g3 -fsanitize=address 
 
 OBJS = $(SRCS:.c=.o)
 
