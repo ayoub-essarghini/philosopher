@@ -6,7 +6,7 @@
 /*   By: aes-sarg <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:27:22 by aes-sarg          #+#    #+#             */
-/*   Updated: 2024/07/08 23:27:28 by aes-sarg         ###   ########.fr       */
+/*   Updated: 2024/07/15 00:16:22 by aes-sarg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -35,7 +35,7 @@ int	routine_2(t_philo *philo, t_data *data)
 	}
 	print_status(philo, "is sleeping");
 	my_usleep(data->t_sleep);
-	print_status(philo, "is thinking");
+	p_sleep(philo);
 	return (0);
 }
 
